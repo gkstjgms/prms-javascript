@@ -1,11 +1,10 @@
-import axios from "axios";
+import "../style/index.scss";
+import "@fortawesome/fontawesome-free/js/all.js";
 
-import "./index.scss";
+import { initCurrentAsset } from "./current-asset";
 
-const getPosts = async () => {
-    const data = await axios.get("http://localhost:3000/posts");
-    console.log(data);
-    return data;
+const initApp = () => {
+    initCurrentAsset();
 };
 
-getPosts();
+initApp();
