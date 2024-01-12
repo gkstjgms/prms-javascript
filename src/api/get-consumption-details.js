@@ -1,4 +1,5 @@
 import axios from "axios";
+
 /**
  * @returns
  * {
@@ -10,8 +11,7 @@ import axios from "axios";
  *  createAt: string,
  * }[]
  */
-export const getComsumptionDeatils = async () => {
+export const getConsumptionDetails = async () => {
     const { data } = await axios.get("http://localhost:3000/consumption-details");
-    console.log(data);
     return data;
 };

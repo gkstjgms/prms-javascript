@@ -1,6 +1,6 @@
-import { addCurrentAsset } from "../api/add-current-asset";
+import { updateCurrentAsset } from "../api/update-current-asset";
 import { getCurrentAsset } from "../api/get-current-asset";
-import { toShow, toHidden } from "./util";
+import { toHidden, toShow } from "./util";
 
 const $currentAssetValue = document.querySelector(".current-asset-value");
 const $currentAssetLoader = document.querySelector(".current-asset-loader");
@@ -16,13 +16,25 @@ export const initCurrentAsset = () => {
         const inputValue = $currentAssetInput.value;
         if (inputValue > 0) {
             handleAddCurrentAsset(inputValue);
+            toHidden($currentAssetButton);
         } else {
-            console.warn("0원 이상을 입력하세요.");
+            console.warn("0원 이상이 아닙니다.");
         }
     });
 };
 
-// 데이터를 조회하여 UI 업데이트
+export const handleAddCurrentAsset = async (inputValue) => {
+    toShow($currentAssetButtonLoader);
+    toHidden($currentAssetButton);
+
+    await updateCurrentAsset(Number(inputValue));
+
+    toHidden($currentAssetButtonLoader);
+    toShow($currentAssetButton);
+
+    await handleGetCurrentAsset();
+};
+
 const handleGetCurrentAsset = async () => {
     toShow($currentAssetLoader);
 
@@ -37,20 +49,8 @@ const handleGetCurrentAsset = async () => {
             toHidden($addItemButton);
         }
     } catch (err) {
-        console.error("현재 자산을 조회할 수 없습니다.");
+        console.error("현재자산을 조회한는데 실패했습니다.");
     }
 
     toHidden($currentAssetLoader);
-};
-
-const handleAddCurrentAsset = async (inputValue) => {
-    toShow($currentAssetButtonLoader);
-    toHidden($currentAssetButton);
-
-    await addCurrentAsset(Number(inputValue));
-
-    toHidden($currentAssetButtonLoader);
-    toShow($currentAssetButton);
-
-    await handleGetCurrentAsset();
 };

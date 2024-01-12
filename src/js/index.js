@@ -1,12 +1,14 @@
 import "../style/index.scss";
-import "@fortawesome/fontawesome-free/js/all.js";
+import "@fortawesome/fontawesome-free/js/all.min.js";
 
+import { initAddItem } from "./add-item";
+import { initConsumptionDetails } from "./consumption-details";
 import { initCurrentAsset } from "./current-asset";
-import { initConsumptionDetails } from "./consumption-detail";
 
 const initApp = () => {
     initCurrentAsset();
     initConsumptionDetails();
+    initAddItem();
 };
 
 initApp();
